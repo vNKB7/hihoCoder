@@ -1,6 +1,7 @@
 package hihocode;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,7 +26,7 @@ public class Offer13_3 {
 			int[][][] chess = new int[2][8][8];
 			int index = 1;
 			chess[index][R-1][C-1] = 1;
-			
+			HashSet<int[]> set = new HashSet<int[]>();
 			for(int i = 0; i < N; i++){
 				for(int j = 0; j < 8; j ++){
 					for(int k = 0; k < 8; k++){
@@ -34,6 +35,7 @@ public class Offer13_3 {
 							for(int l = 0; l < next.size(); l++){
 								chess[1-index][next.get(l)[0]-1][next.get(l)[1]-1] += chess[index][j][k];
 								chess[1-index][next.get(l)[0]-1][next.get(l)[1]-1] %= 1000000007;
+								set.add(new int[]{next.get(l)[0]-1, next.get(l)[1]-1});
 							}
 						}
 					}
