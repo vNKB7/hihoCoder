@@ -35,7 +35,7 @@ public class P1365 {
 						remain_space -= W[j];
 						max_h = max_h > H[j] ? max_h : H[j];
 					} else {
-						int cur_h = (int)Math.ceil((double)remain_space * H[j] / W[j]);//(remain_space * H[j] + W[j] - 1) / W[j];
+						int cur_h = (remain_space * H[j] + W[j] - 1) / W[j];
 						max_h = max_h > cur_h ? max_h : cur_h;
 						remain_space = 0;
 					}
@@ -44,10 +44,9 @@ public class P1365 {
 			}
 
 			int min_height = Integer.MAX_VALUE;
-			int min_index = 0;
 			int pre_h = 0; // 本行之上的高度
-			int row_h = 0; // 本行中在此之间的最大高度
-			int row_w = 0; // 本行剩余的空间
+			int row_h = 0; // 本行最大高度
+			int row_w = 0; // 本行已使用宽度
 			for (int i = 0; i < N; i++) {
 				// 计算i不在时的高度
 				int max_h = row_h;
@@ -60,7 +59,7 @@ public class P1365 {
 						remain_space -= W[j];
 						max_h = max_h > H[j] ? max_h : H[j];
 					} else {
-						int cur_h = (int)Math.ceil((double)remain_space * H[j] / W[j]);//(remain_space * H[j] + W[j] - 1) / W[j];
+						int cur_h = (remain_space * H[j] + W[j] - 1) / W[j];
 						max_h = max_h > cur_h ? max_h : cur_h;
 						remain_space = 0;
 					}
@@ -69,7 +68,6 @@ public class P1365 {
 				int temp = pre_h + max_h + height[j];
 				if (temp < min_height) {
 					min_height = temp;
-					min_index = i;
 				}
 
 				// 更新pre_h, row_h, row_w
@@ -83,14 +81,14 @@ public class P1365 {
 					pre_h += row_h;
 					row_h = 0;
 				} else {
-					int cur_h = (int)Math.ceil((double)remain_space * H[i] / W[i]);//(remain_space * H[i] + W[i] - 1) / W[i];
+					row_w = 0;
+					int cur_h = (remain_space * H[i] + W[i] - 1) / W[i];
 					row_h = row_h > cur_h ? row_h : cur_h;
 					pre_h += row_h;
 					row_h = 0;
 				}
 			}
 			System.out.println(min_height);
-			System.out.println(min_index);
 		}
 	}
 
